@@ -21,23 +21,21 @@ answer function() {
 			r.number[0][c]++;
 			r.number[1][c] = 0;
 		}
-		if (r.number[2][c] == r.number[1][c] || r.number[2][c] == r.number[0][c]) {
-			do {
-				r.number[2][c]++;
-				if (r.number[2][c] == 10) {
+		while (r.number[2][c] == r.number[1][c] || r.number[2][c] == r.number[0][c]) {
+			r.number[2][c]++;
+			if (r.number[2][c] == 10) {
+				r.number[1][c]++;
+				r.number[2][c] = 0;
+			}
+			if (r.number[1][c] == r.number[0][c]) {
+				do {
 					r.number[1][c]++;
-					r.number[2][c] = 0;
-				}
-				if (r.number[1][c] == r.number[0][c]) {
-					do {
-						r.number[1][c]++;
-					} while (r.number[1][c] == r.number[0][c]);
-				}
-				if (r.number[1][c] == 10) {
-					r.number[0][c]++;
-					r.number[1][c] = 0;
-				}
-			} while (r.number[2][c] == r.number[1][c] || r.number[2][c] == r.number[0][c]);
+				} while (r.number[1][c] == r.number[0][c]);
+			}
+			if (r.number[1][c] == 10) {
+				r.number[0][c]++;
+				r.number[1][c] = 0;
+			}
 		}
 		if (c < 720) {
 			r.number[2][c + 1] = r.number[2][c];
