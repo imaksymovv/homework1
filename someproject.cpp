@@ -1,56 +1,59 @@
 ﻿#include <iostream>
 
 struct answer {
-	int number[3][1];
+	int number[3][721];
 };
 
-void function(answer& r) {
+answer function() {
+	int c = 0;
+	answer r;
+	r.number[0][0] = { 0 };
+	r.number[1][0] = { 0 };
+	r.number[2][0] = { -1 };
+	do {
+		r.number[2][c]++;
 
-	r.number[2][0]++;
+		if (r.number[2][c] == 10) {
+			r.number[1][c]++;
+			r.number[2][c] = 0;
+		}
+		if (r.number[1][c] == 10) {
+			r.number[0][c]++;
+			r.number[1][c] = 0;
+		}
+		if (r.number[2][c] == r.number[1][c] || r.number[2][c] == r.number[0][c]) {
+			do {
+				r.number[2][c]++;
+				if (r.number[2][c] == 10) {
+					r.number[1][c]++;
+					r.number[2][c] = 0;
+				}
+				if (r.number[1][c] == r.number[0][c]) {
+					do {
+						r.number[1][c]++;
+					} while (r.number[1][c] == r.number[0][c]);
+				}
+				if (r.number[1][c] == 10) {
+					r.number[0][c]++;
+					r.number[1][c] = 0;
+				}
+			} while (r.number[2][c] == r.number[1][c] || r.number[2][c] == r.number[0][c]);
+		}
+		if (c < 720) {
+			r.number[2][c + 1] = r.number[2][c];
+			r.number[1][c + 1] = r.number[1][c];
+			r.number[0][c + 1] = r.number[0][c];
+			c++;
+		}
 
-	if (r.number[2][0] == 10) {
-		r.number[1][0]++;
-		r.number[2][0] = 0;
-	}
-	if (r.number[1][0] == 10) {
-		r.number[0][0]++;
-		r.number[1][0] = 0;
-	}
-	if (r.number[2][0] == r.number[1][0] || r.number[2][0] == r.number[0][0]) {
-		do {
-			r.number[2][0]++;
-			if (r.number[2][0] == 10) {
-				r.number[1][0]++;
-				r.number[2][0] = 0;
-			}
-			if (r.number[1][0] == r.number[0][0]) {
-				do {
-					r.number[1][0]++;
-				} while (r.number[1][0] == r.number[0][0]);
-			}
-			if (r.number[1][0] == 10) {
-				r.number[0][0]++;
-				r.number[1][0] = 0;
-			}
-		} while (r.number[2][0] == r.number[1][0] || r.number[2][0] == r.number[0][0]);
-	}
+	} while (c < 720);
+	return r;
 }
 
 int main() {
-	bool c = false;
-	answer p;
-	p.number[0][0] = { 0 };
-	p.number[1][0] = { 0 };
-	p.number[2][0] = { -1 };
-	do {
-		function(p);
-		if (p.number[0][0] != 10) {
-			std::cout << p.number[0][0] << p.number[1][0] << p.number[2][0] << std::endl;
-		}
-		else {
-			c = true;
-		}
-
-	} while (!c);
+	auto p = function();
+	for (size_t i = 0; i < 720; i++) {
+		std::cout << p.number[0][i] << p.number[1][i] << p.number[2][i] << std::endl;
+	}
 	return 0;
 }
