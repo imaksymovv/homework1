@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 
 struct answer {
-	int number[721][3] = { {0,1,2},
+	int number[720][3] = { {0,1,2},
 {0,1,3},
 {0,1,4},
 {0,1,5},
